@@ -2262,6 +2262,204 @@
             .stat-divider { display: none; }
             .cookie-banner { padding: 1rem; }
         }
+        
+        /* ============================================
+           AI CHATBOT WIDGET
+        ============================================ */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(10, 127, 127, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: pulse-glow 2s infinite;
+        }
+        .chatbot-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(10, 127, 127, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(10, 127, 127, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(10, 127, 127, 0); }
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 11rem;
+            right: 2rem;
+            width: 380px;
+            height: 600px;
+            max-height: 80vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(30, 27, 75, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        .chatbot-window.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1.2rem 1.5rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 28px 28px 0 0;
+        }
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .chat-title-icon {
+            background: rgba(255,255,255,0.2);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .chat-close {
+            background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; opacity: 0.8; transition: opacity 0.2s;
+        }
+        .chat-close:hover { opacity: 1; }
+
+        .chat-body {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        .chat-message {
+            max-width: 85%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: slide-up-fade 0.3s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+            word-wrap: break-word;
+        }
+        @keyframes slide-up-fade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-message.bot {
+            background: #fff;
+            border: 1px solid rgba(30, 27, 75, 0.05);
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .chat-message.user {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+            box-shadow: 0 4px 15px rgba(10, 127, 127, 0.2);
+        }
+
+        .chat-input-area {
+            padding: 1.2rem;
+            background: #fff;
+            border-top: 1px solid rgba(30, 27, 75, 0.05);
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        .chat-input-field {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid rgba(30, 27, 75, 0.1);
+            border-radius: 99px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #f8fafc;
+        }
+        .chat-input-field:focus {
+            border-color: var(--primary);
+            background: #fff;
+        }
+        .chat-send-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(30, 27, 75, 0.15);
+        }
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1.2rem;
+            background: #fff;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            width: fit-content;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: none;
+        }
+        .typing-indicator.active { display: flex; }
+        .typing-dot {
+            width: 8px; height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
 
         /* ============================================
            MOBILE APP EXPERIENCE (max-width: 768px)
@@ -2318,6 +2516,20 @@
                 font-size: 0.82rem !important;
             }
 
+            /* --- Chatbot Mobile Overrides --- */
+            .chatbot-btn {
+                bottom: 6.5rem !important; /* Above bottom nav */
+                right: 1.2rem !important;
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 1.5rem !important;
+            }
+            .chatbot-window {
+                width: calc(100% - 2.4rem) !important;
+                right: 1.2rem !important;
+                bottom: 11rem !important; /* Above bottom nav and button */
+                max-height: 65vh !important;
+            }
             /* --- Bottom App Navigation --- */
             .app-bottom-nav {
                 display: flex;
@@ -2374,9 +2586,10 @@
             .hero-content::after { font-size: 0.75rem !important; padding: 0.8rem 1rem !important; }
 
             /* --- Stats section --- */
-            .stats-section { padding: 2rem 1.2rem; border-radius: 0; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
-            .stat-number { font-size: 2.4rem !important; }
+            .stats-section { padding: 2.5rem 1.2rem; border-radius: 0; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+            .stat-number { font-size: 2rem !important; }
+            .stat-label { font-size: 0.85rem !important; }
 
             /* --- Sections: full-bleed feel --- */
             section { padding: 2.5rem 0 !important; }
@@ -2404,28 +2617,30 @@
             .intro-highlight { padding: 1.5rem; border-radius: 18px; }
 
             /* --- VM Grid --- */
-            .vm-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-            .vm-card { padding: 1.8rem 1.4rem; border-radius: 22px; }
+            .vm-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .vm-card { padding: 1.2rem 1.2rem; border-radius: 16px; }
+            .vm-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+            .vm-card p { font-size: 0.9rem; line-height: 1.5; }
 
-            /* --- Values Grid: horizontal scroll --- */
+            /* --- Values Grid: vertical stacked and compact --- */
             .values-grid {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                gap: 1rem !important;
-                padding: 0.5rem 1.2rem 1rem !important;
-                margin: 0 -1.2rem !important;
-                scrollbar-width: none !important;
-                -webkit-overflow-scrolling: touch;
-                scroll-snap-type: x mandatory;
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: 0.8rem !important;
+                padding: 0 1.2rem !important;
+                margin: 0 !important;
+                overflow-x: visible !important;
             }
-            .values-grid::-webkit-scrollbar { display: none; }
             .value-card {
-                flex: 0 0 82vw !important;
-                border-radius: 22px !important;
-                scroll-snap-align: start;
-                transform: none !important;
+                flex: none !important;
+                width: auto !important;
+                padding: 1.2rem !important;
+                border-radius: 16px !important;
             }
+            .value-card p { font-size: 0.85rem; line-height: 1.4; margin-bottom: 0; }
+            .value-header { margin-bottom: 0.5rem; }
+            .value-header h3 { font-size: 1.1rem; }
+            .value-icon { font-size: 1.2rem; width: 36px; height: 36px; }
 
             /* --- Services Grid: horizontal scroll --- */
             .services-grid {
@@ -2467,10 +2682,10 @@
                 scroll-snap-align: start;
             }
 
-            /* --- Steps grid: 2-col then 1-col --- */
-            .steps-grid { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 0 1.2rem; }
-            .step-card { padding: 1.4rem; border-radius: 20px; }
-            .step-icon { width: 48px; height: 48px; font-size: 1.2rem; }
+            /* --- Steps grid: 1-col on mobile --- */
+            .steps-grid { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.2rem; }
+            .step-card { padding: 1.6rem; border-radius: 20px; }
+            .step-icon { width: 48px; height: 48px; font-size: 1.2rem; margin-bottom: 0.8rem; }
 
             /* --- Who we serve: horizontal scroll --- */
             .serve-grid {
@@ -2597,8 +2812,8 @@
                 <li><a href="#vision-mission">Vision & Mission</a></li>
                 <li><a href="#core-values">Values</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+                <li><a href="#contact-form">Contact</a></li>
+                <li><a href="#contact-form" class="nav-cta">Get Started</a></li>
             </ul>
         </nav>
     </header>
@@ -2854,14 +3069,14 @@
             <p class="section-description">Our care is designed for individuals and families who want dependable support while remaining in the comfort of home.</p>
             <div class="serve-grid">
                 <div class="serve-card">
-                    <img src="https://images.unsplash.com/photo-1581579438747-104c53d7fbc4?auto=format&fit=crop&w=1000&q=85" alt="Senior adult relaxing at home">
+                    <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=1000&q=85" alt="Senior adult relaxing at home">
                     <div class="serve-card-content">
                         <h3>Seniors Aging at Home</h3>
                         <p>Support with daily routines, companionship, safety, and independence.</p>
                     </div>
                 </div>
                 <div class="serve-card">
-                    <img src="https://images.unsplash.com/photo-1576765607924-299dc6f8d4ff?auto=format&fit=crop&w=1000&q=85" alt="Patient recovering with healthcare support">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&q=85" alt="Patient recovering with healthcare support">
                     <div class="serve-card-content">
                         <h3>Post-Hospital Recovery</h3>
                         <p>Care after surgery, illness, or hospitalization to support safer recovery.</p>
@@ -3588,6 +3803,38 @@
         });
     </script>
 
+    <!-- AI CHATBOT WIDGET -->
+    <div class="chatbot-btn" id="chatbotBtn" aria-label="Open Next Door AI Assistant" title="Chat with Next Door AI Assistant">
+        <span style="font-size: 1.8rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">✨</span>
+    </div>
+
+    <div class="chatbot-window" id="chatbotWindow" aria-hidden="true" role="dialog" aria-label="Next Door AI Assistant Chat">
+        <div class="chat-header">
+            <div class="chat-title">
+                <div class="chat-title-icon">✨</div>
+                Next Door AI Assistant
+            </div>
+            <button class="chat-close" id="chatbotClose" aria-label="Close Chat">×</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">
+                Hi there! I'm your Next Door AI Assistant. 👋<br><br>How can I help you and your family today? You can ask me about our services, insurance, or how to get started!
+            </div>
+            <!-- Typing indicator initially hidden -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input-field" id="chatInput" placeholder="Type your message here..." aria-label="Chat message">
+            <button class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
+                <span style="transform: translateX(-1px) translateY(1px); font-size: 1.2rem;">➤</span>
+            </button>
+        </div>
+    </div>
+
     <!-- BOTTOM APP NAVIGATION (mobile only) -->
     <nav class="app-bottom-nav" id="appBottomNav" aria-label="App navigation">
         <a href="#" class="app-nav-item active" id="navHome">
@@ -3609,32 +3856,75 @@
     </nav>
 
     <script>
-        /* === BOTTOM NAV ACTIVE STATE === */
+        /* === SCROLL SPY FOR NAVIGATION (Desktop & Mobile) === */
         const appNavItems = document.querySelectorAll('.app-nav-item');
-        const sections = {
-            navHome: document.querySelector('.hero'),
-            navServices: document.querySelector('#services'),
-            navTeam: document.querySelector('#team'),
-            navContact: document.querySelector('#contact-form')
-        };
-
+        const topNavItems = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+        const allNavLinks = [...appNavItems, ...topNavItems];
+        
         function updateActiveNav() {
-            if (window.innerWidth > 768) return;
             const scrollY = window.scrollY + window.innerHeight / 3;
-            let activeId = 'navHome';
-            if (sections.navContact && scrollY >= sections.navContact.offsetTop) activeId = 'navContact';
-            else if (sections.navTeam && scrollY >= sections.navTeam.offsetTop) activeId = 'navTeam';
-            else if (sections.navServices && scrollY >= sections.navServices.offsetTop) activeId = 'navServices';
-            appNavItems.forEach(item => item.classList.toggle('active', item.id === activeId));
+            
+            // Collect all sections
+            const sections = Array.from(document.querySelectorAll('section[id], .hero'));
+            
+            // Find the active section
+            let currentSection = '#';
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const sec = sections[i];
+                if (scrollY >= sec.offsetTop) {
+                    const id = sec.getAttribute('id');
+                    currentSection = id ? '#' + id : '#';
+                    break;
+                }
+            }
+
+            // Map sub-sections to their main parent in the navs
+            const sectionMap = {
+                '#introduction': '#',
+                '#vision-mission': '#',
+                '#core-values': '#',
+                '#why-choose': '#services',
+                '#how-it-works': '#services',
+                '#who-we-serve': '#services',
+                '#testimonials': '#team',
+                '#faq': '#contact-form',
+                '#insurance': '#contact-form',
+                '#resources': '#contact-form',
+                '#contact': '#contact-form'
+            };
+            
+            // Fallback to parent category if exact section isn't tracked in a nav
+            let mappedSection = sectionMap[currentSection] || currentSection;
+            
+            if (window.scrollY < 100) mappedSection = '#';
+
+            // Highlight active link in both navs
+            allNavLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentSection || href === mappedSection) {
+                    link.classList.add('active');
+                    if(link.classList.contains('app-nav-item')) {
+                        // App nav handled by CSS
+                    } else {
+                        link.style.color = 'var(--primary)';
+                        link.style.fontWeight = '700';
+                    }
+                } else {
+                    link.classList.remove('active');
+                    if(!link.classList.contains('app-nav-item')) {
+                        link.style.color = '';
+                        link.style.fontWeight = '';
+                    }
+                }
+            });
         }
 
         window.addEventListener('scroll', updateActiveNav, { passive: true });
+        window.addEventListener('load', updateActiveNav);
 
+        // Click haptics for mobile nav
         appNavItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                appNavItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-                /* haptic on supported devices */
+            item.addEventListener('click', () => {
                 if (navigator.vibrate) navigator.vibrate(10);
             });
         });
@@ -3653,6 +3943,163 @@
             }
             lastScrollY = currentY;
         }, { passive: true });
+
+        /* === AI CHATBOT ENGINE === */
+        const chatBtn = document.getElementById('chatbotBtn');
+        const chatWin = document.getElementById('chatbotWindow');
+        const chatClose = document.getElementById('chatbotClose');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        let isChatOpen = false;
+        let isBotTyping = false;
+
+        // Toggle Chat
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            chatWin.classList.toggle('open', isChatOpen);
+            if (isChatOpen) {
+                chatInput.focus();
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate(15);
+                setTimeout(scrollToBottom, 300);
+            }
+        }
+        chatBtn.addEventListener('click', toggleChat);
+        chatClose.addEventListener('click', toggleChat);
+
+        // Auto Scroll
+        function scrollToBottom() {
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Add Message to DOM
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${sender}`;
+            msgDiv.innerHTML = text;
+            chatBody.insertBefore(msgDiv, typingIndicator);
+            scrollToBottom();
+        }
+
+        // Handle Send
+        function handleSend() {
+            const text = chatInput.value.trim();
+            if (!text || isBotTyping) return;
+            
+            // Add user message
+            addMessage(text, 'user');
+            chatInput.value = '';
+            
+            // Trigger AI response
+            processBotResponse(text);
+        }
+        chatSend.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+
+        // Advanced Intent Engine
+        function processBotResponse(userMsg) {
+            isBotTyping = true;
+            typingIndicator.classList.add('active');
+            scrollToBottom();
+
+            const msg = userMsg.toLowerCase().replace(/[^\w\s\d]/gi, ''); // clean punctuation
+            let response = "";
+
+            // Sophisticated Knowledge Base
+            const knowledgeBase = [
+                {
+                    match: /\b(hi|hello|hey|greetings|morning|afternoon|evening|howdy)\b/i,
+                    response: "Hello there! 👋 I'm your Next Door AI Assistant. How can I help you or your family today?"
+                },
+                {
+                    match: /\b(how are you|how do you do|whats up)\b/i,
+                    response: "I'm doing wonderfully, thank you for asking! 😊 I'm here and ready to answer any questions you have about our home care services."
+                },
+                {
+                    match: /\b(service|services|help|care|options|what do you do|what can you do)\b/i,
+                    response: "We offer comprehensive in-home care tailored to your needs. Our core services include:<br><br>🩺 <strong>Skilled Nursing</strong> (medical care, wound care)<br>🤝 <strong>Personal Care</strong> (bathing, dressing, mobility)<br>❤️ <strong>Companion Care</strong> (socializing, light housekeeping).<br><br>Which of these sounds closest to what you're looking for?"
+                },
+                {
+                    match: /\b(nursing|nurse|medical|wound|postop|surgery|therapy)\b/i,
+                    response: "Our <strong>Skilled Nursing Care</strong> is provided by licensed professionals. We handle everything from medication management and wound care to post-operative recovery right in the comfort of your home."
+                },
+                {
+                    match: /\b(companion|lonely|social|housekeeping|cleaning|cook|meal)\b/i,
+                    response: "Our <strong>Companion Care & Homemaker Services</strong> are perfect for seniors needing a little extra help. We assist with light housekeeping, meal preparation, laundry, and provide warm, engaging companionship."
+                },
+                {
+                    match: /\b(cost|price|pay|insurance|medicaid|medicare|expensive|rate|rates|fee|fees)\b/i,
+                    response: "We believe quality care should be accessible. We accept:<br><br>🏥 <strong>Medicaid Waiver Programs</strong><br>📄 <strong>Long-Term Care Insurance</strong><br>🏛 <strong>Veterans Benefits (VA)</strong><br>💳 <strong>Private/Self-Pay</strong><br><br>Would you like to schedule a free consultation to verify your exact coverage?"
+                },
+                {
+                    match: /\b(contact|phone|call|number|location|address|where|reach|email)\b/i,
+                    response: "You can reach our team right away! <br><br>📞 <strong>Phone:</strong> <a href='tel:' style='color:var(--primary); font-weight:bold;'>Click here to call</a><br>📍 <strong>Location:</strong> North Carolina<br>✉️ <strong>Form:</strong> <a href='#contact-form' style='color:var(--primary); font-weight:bold;' onclick='toggleChat()'>Fill out our Contact Form</a>."
+                },
+                {
+                    match: /\b(who|team|caregiver|staff|background|safe|trust)\b/i,
+                    response: "Your family's safety is our #1 priority. Every member of our team is fully licensed, rigorously background-checked, and extensively trained in compassionate care."
+                },
+                {
+                    match: /\b(job|hiring|career|work|apply|employment)\b/i,
+                    response: "We are always looking for passionate caregivers and nurses to join our team! Please reach out through our <a href='#contact-form' style='color:var(--primary); font-weight:bold;' onclick='toggleChat()'>Contact Form</a> with your details, or call us directly."
+                },
+                {
+                    match: /\b(hours|time|schedule|247|night|overnight|weekend)\b/i,
+                    response: "We offer highly flexible scheduling! Care can be arranged for a few hours a week, daytime shifts, overnight care, or even full <strong>24/7 round-the-clock support</strong>. What kind of schedule were you thinking of?"
+                },
+                {
+                    match: /\b(alzheimer|alzheimers|dementia|memory)\b/i,
+                    response: "Yes, our caregivers are specially trained in <strong>Memory Care</strong>. We provide a safe, familiar environment and engaging routines to support clients with Alzheimer's or dementia."
+                },
+                {
+                    match: /\b(thank|thanks|appreciate|perfect|great|good|awesome)\b/i,
+                    response: "You're very welcome! Let me know if there's anything else I can do for you. Have a wonderful day! 🌟"
+                },
+                {
+                    match: /\b(joke|funny|laugh)\b/i,
+                    response: "Why did the nurse need a red pen at work? ... In case she needed to draw blood! 😂 (I promise our actual nurses are much better than my jokes!)"
+                },
+                {
+                    match: /\b(bot|human|ai|robot|real|chatgpt)\b/i,
+                    response: "I am the Next Door AI Assistant! 🤖 While I'm not a real human, I'm here to instantly answer your questions 24/7. If you need a real human, just ask for our phone number!"
+                }
+            ];
+
+            // Evaluate Knowledge Base
+            let foundMatch = false;
+            for (let intent of knowledgeBase) {
+                if (intent.match.test(msg)) {
+                    response = intent.response;
+                    foundMatch = true;
+                    break;
+                }
+            }
+
+            // Advanced Contextual Fallback
+            if (!foundMatch) {
+                if (msg.length < 5) {
+                    response = "I didn't quite catch that. Could you tell me a little more?";
+                } else if (userMsg.includes("?") || msg.match(/\b(why|what|when|how)\b/i)) {
+                    response = "That's a fantastic question. Since every family's situation is unique, I recommend speaking directly with one of our Care Coordinators. You can easily reach them through our <a href='#contact-form' style='color:var(--primary); font-weight:bold;' onclick='toggleChat()'>Contact Form</a>!";
+                } else {
+                    response = "I understand. Navigating home care can be complex. I'd love to connect you with our human care team so they can give you the personalized attention you deserve. You can <a href='#contact-form' style='color:var(--primary); font-weight:bold;' onclick='toggleChat()'>reach out to them here</a>.";
+                }
+            }
+
+            // Simulate realistic typing delay based on response length (feels very natural)
+            const delay = Math.min(Math.max(response.length * 12, 1000), 2500);
+
+            setTimeout(() => {
+                typingIndicator.classList.remove('active');
+                addMessage(response, 'bot');
+                isBotTyping = false;
+            }, delay);
+        }
     </script>
 </body>
 </html>
